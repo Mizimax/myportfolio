@@ -19,7 +19,13 @@ const RightMenu = styled(Menu.Item)`
 export class Navbar extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    this.state = {
+      location: props.location
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ location: nextProps.location });
   }
 
   render() {
@@ -27,16 +33,20 @@ export class Navbar extends Component {
       <NavBar>
         <Row type="flex" justify="center">
           <Col span={18}>
-            <CustomMenu style={{ borderBottom: "none" }} mode="horizontal">
+            <CustomMenu
+              style={{ borderBottom: "none" }}
+              mode="horizontal"
+              selectedKeys={[this.state.location.pathname]}
+            >
               <LogoMenu disabled>
                 <Link to="/">
                   <Logo>Maxang.me</Logo>
                 </Link>
               </LogoMenu>
-              <RightMenu key="exp">
+              <RightMenu key="/exp">
                 <Link to="/exp">Experience</Link>
               </RightMenu>
-              <RightMenu>
+              <RightMenu key="/">
                 <Link to="/">About</Link>
               </RightMenu>
             </CustomMenu>
